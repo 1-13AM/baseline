@@ -2,10 +2,10 @@ model_type: standard
 model_name: VideoMAE-v2
 model_class: models.VideoMAE_v2.VideoMAEForClassification
 model_configs:
-  num_classes: 50
+  num_classes: 100
   qkv_bias: true
   init_values: 0.0
-model_checkpoint: checkpoint/VideoMAE_v2/vit_b.pth
+model_checkpoint: pretrained_checkpoints/VideoMAE_v2/vit_b.pth
 train_dataset_configs:
     root_dir: TRAIN_DATA_PATH
     transform: utils.util.create_video_transforms

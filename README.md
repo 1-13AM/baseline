@@ -50,12 +50,9 @@ Before running, modify the script parameters:
 
 ## Training
 
-1. Edit `scripts/videomae_v2.sh` with the following parameters:
-   - `MODEL_PATH`: Path to the VideoMAE-v2 checkpoint
+1. Edit the following fields in the model configuration & shell script:
    - `TRAIN_DATA_PATH`: Path to training data folder
    - `VAL_DATA_PATH`: Path to validation data folder
 
-2. Start training:
-```bash
-bash videomae_v2.sh
-```
+2. Start training by running the scripts in /scripts folder: `videomae_v2.sh` for VideoMAE, `x3d.sh` for X3D and `i3d.sh` for I3D.
+

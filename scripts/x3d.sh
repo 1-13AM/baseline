@@ -1,6 +1,5 @@
 # train an X3D model from scratch
-python -m train.train_from_scratch --config model_configs/X3D_m.yaml \
-                                    --num_classes 83 \
+python -m train.train_from_scratch --config model_configs/X3D_M.yaml \
                                     --num_epochs 100 \
                                     --learning_rate 0.0001 \
                                     --batch_size 24 \

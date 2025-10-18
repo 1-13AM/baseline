@@ -1,6 +1,5 @@
 # train an I3D model from scratch
 python -m train.train_from_scratch --config model_configs/Inception3D.yaml \
-                                    --num_classes 131 \
                                     --num_epochs 30 \
                                     --learning_rate 0.0001 \
                                     --batch_size 24 \

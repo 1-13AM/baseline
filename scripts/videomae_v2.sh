@@ -1,6 +1,5 @@
 
 python -m train.train_from_scratch --config model_configs/VideoMAE_v2.yaml \
-                                --num_classes 100 \
                                 --num_epochs 50 \
                                 --learning_rate 0.00015 \
                                 --batch_size 32 \

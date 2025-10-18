@@ -2,11 +2,11 @@ model_type: standard
 model_name: x3d
 model_class: models.x3d.X3D
 model_configs:
-  num_classes: 50
+  num_classes: 100
   gamma_w: 2.
   gamma_b: 2.25
   gamma_d: 5.
-model_checkpoint: checkpoint/x3d/x3d_l.pth
+model_checkpoint: pretrained_checkpoints/x3d/x3d_l.pth
 train_dataset_configs: 
     root_dir: TRAIN_DATA_PATH
     transform: utils.util.create_video_transforms

@@ -37,12 +37,9 @@ def get_function_from_string(func_path):
     module = import_module(module_path)
     return getattr(module, func_name)
 
-def instantiate_model(config, num_classes=None, model_path=None):
+def instantiate_model(config, model_path=None):
     model_class = get_class_from_string(config['model_class'])
     model_configs = config['model_configs'].copy()
-    
-    if num_classes is not None:
-        model_configs['num_classes'] = num_classes
     
     if config['model_name'] == 'VideoMAE-v2':
         model_configs['norm_layer'] = partial(nn.LayerNorm, eps=1e-6)
@@ -122,10 +119,10 @@ def train_one_epoch(model, train_loader, optimizer, criterion, device, accumulat
     return running_loss * accumulation_steps / len(train_loader)
 
 
-def validate_model(model, val_loader, criterion, device):
+def validate_model(model, num_classes, val_loader, criterion, device):
     model.eval()
     running_loss = 0.0
-    metric = Metrics(num_classes = 129, k = 3)
+    metric = Metrics(num_classes=num_classes, k=3)
 
     progress_bar = tqdm(val_loader, desc="Validating", leave=False)
 
@@ -148,6 +145,7 @@ def validate_model(model, val_loader, criterion, device):
 
 
 def train_model(model: torch.nn.Module, 
+                num_classes: int,
                 train_loader: torch.utils.data.DataLoader, 
                 val_loader: torch.utils.data.DataLoader, 
                 optimizer: torch.optim.Optimizer, 
@@ -171,7 +169,7 @@ def train_model(model: torch.nn.Module,
         print(f"Training loss: {train_loss:.4f}")
 
         if val_loader is not None:
-            val_loss, perf = validate_model(model, val_loader, criterion, device)
+            val_loss, perf = validate_model(model, num_classes, val_loader, criterion, device)
             print(f"Validation loss: {val_loss:.4f}")
             print(f"Validation accuracy: {perf['mean_accuracy']:.4f}")
             print(f"Validation F1: {perf['mean_f1']:.4f}")
@@ -209,8 +207,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Train a model')
     parser.add_argument('--config', type=str, required=True,
                         help='Path to model config YAML file')
-    parser.add_argument('--num_classes', type=int, required=True,
-                        help='Number of classes (overrides config)')
     parser.add_argument('--model_path', type=str,
                         help='Path to pretrained model weights (overrides config)')
     parser.add_argument('--num_epochs', type=int, default=20,
@@ -247,7 +243,7 @@ if __name__ == '__main__':
 
     config = load_config(args.config)
     
-    model = instantiate_model(config, num_classes=args.num_classes, model_path=args.model_path)
+    model = instantiate_model(config, model_path=args.model_path)
     
     train_transformations = create_transformations(config, is_train=True)
     val_transformations = create_transformations(config, is_train=False)
@@ -287,6 +283,7 @@ if __name__ == '__main__':
         scheduler = None
         
     train_model(model=model,
+                num_classes=config['model_configs']['num_classes'],
                 train_loader=train_dataloader,
                 val_loader=val_dataloader,
                 optimizer=optimizer,
