@@ -1,0 +1,29 @@
+model_type: standard
+model_name: x3d_m
+model_class: models.x3d.X3D
+model_configs:
+  num_classes: 50
+  gamma_w: 1
+  gamma_b: 2.25
+  gamma_d: 2.2
+model_checkpoint: checkpoint/x3d/x3d_m.pth
+train_dataset_configs: 
+    root_dir: TRAIN_DATA_PATH
+    transform: utils.util.create_video_transforms
+    num_output_frames: 16
+    transformation_configs:
+      mean: [0.45, 0.45, 0.45]
+      std: [0.225, 0.225, 0.225]
+      resize_to: 224
+      crop_size: 224
+validation_dataset_configs: 
+    root_dir: VALIDATION_DATA_PATH
+    transform: utils.util.create_video_transforms
+    num_output_frames: 16
+    transformation_configs:
+      mean: [0.45, 0.45, 0.45]
+      std: [0.225, 0.225, 0.225]
+      resize_to: 224
+      crop_size: 224
+
+dataset_class: create_dataset.video_dataset.VideoDataset

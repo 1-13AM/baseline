@@ -1,0 +1,21 @@
+model_type: standard
+model_name: i3d
+model_class: models.i3d.InceptionI3d
+model_configs:
+  num_classes: 50
+  in_channels: 3
+model_checkpoint: checkpoint/i3d/i3d.pth
+train_dataset_configs: 
+    root_dir: TRAIN_DATA_PATH
+    transform: utils.util.create_video_transforms_i3d
+    transformation_configs:
+      resize_to: 224
+      crop_size: 224
+validation_dataset_configs: 
+    root_dir: VALIDATION_DATA_PATH
+    transform: utils.util.create_video_transforms_i3d
+    transformation_configs:
+      resize_to: 224
+      crop_size: 224
+
+dataset_class: create_dataset.video_dataset.VideoDataset

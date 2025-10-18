@@ -1,0 +1,28 @@
+model_type: standard
+model_name: VideoMAE-v2
+model_class: models.VideoMAE_v2.VideoMAEForClassification
+model_configs:
+  num_classes: 50
+  qkv_bias: true
+  init_values: 0.0
+model_checkpoint: checkpoint/VideoMAE_v2/vit_b.pth
+train_dataset_configs:
+    root_dir: TRAIN_DATA_PATH
+    transform: utils.util.create_video_transforms
+    num_output_frames: 16
+    transformation_configs:
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+      resize_to: 224
+      crop_size: 224
+validation_dataset_configs: 
+    root_dir: VALIDATION_DATA_PATH
+    transform: utils.util.create_video_transforms
+    num_output_frames: 16
+    transformation_configs:
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+      resize_to: 224
+      crop_size: 224
+dataset_class: create_dataset.video_dataset.VideoDataset
+
