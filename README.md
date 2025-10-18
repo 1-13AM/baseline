@@ -1,7 +1,4 @@
-# VideoMAE-v2 SL Training Pipeline
-
-This repository contains scripts and instructions for training VideoMAE-v2 models on custom video datasets.
-
+# Baseline
 ## Prerequisites
 
 Before starting, ensure you have Python installed on your system. Then install the required packages:
