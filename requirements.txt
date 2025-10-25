@@ -3,12 +3,12 @@ imageio-ffmpeg==0.5.1
 numpy==1.26.4
 opencv-python==4.8.0.74
 tqdm==4.66.5
-torch==2.4.1
-transformers==4.45.0
+torch
+transformers
 python-dotenv==1.0.1
 wandb==0.18.2
 Pillow==9.2.0
-torchvision==0.19.1 
+torchvision
 timm==1.0.9
 scikit-learn==1.2.0
 ipython==8.14.0
